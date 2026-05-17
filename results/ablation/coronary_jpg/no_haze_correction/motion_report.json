@@ -1,0 +1,417 @@
+{
+  "motion_report": {
+    "timings_seconds": {
+      "masks": 1.8508234999972046,
+      "global_preregistration": 0.02249650000157999,
+      "matching_primary": 4.963491599999543,
+      "motion_model": 0.43051959999866085,
+      "field_primary": 0.5989663000000292,
+      "subtraction": 0.7691067999985535,
+      "total": 8.889280799994594
+    },
+    "motion_model": {
+      "model": "nonrigid",
+      "apply": true,
+      "count": 24,
+      "mean_confidence": 0.26940094913084944,
+      "median_magnitude": 1.8234901223228643,
+      "translation_residual": 1.0163687015655527,
+      "affine_residual": 0.7443988586030517,
+      "coherence": 0.5917724777293999,
+      "inlier_fraction": 1.0,
+      "translation_variation_ratio": 0.5573754906173252,
+      "affine_variation_ratio": 0.40822752450931543,
+      "affine_improvement": 0.2675897462639052,
+      "preferred_nonrigid": true
+    },
+    "motion_profile": "micro_motion",
+    "vessel_detection": {
+      "method": "contrast_appearance",
+      "mask": {
+        "pixels": 6262,
+        "fraction_roi": 0.09823977910953531,
+        "components": 12,
+        "largest_component_pixels": 3448
+      },
+      "support_mask": {
+        "pixels": 19616,
+        "fraction_roi": 0.0748291015625,
+        "components": 7,
+        "largest_component_pixels": 18472
+      },
+      "support_mask_roi": {
+        "pixels": 19129,
+        "fraction_roi": 0.3001004047566753,
+        "components": 7,
+        "largest_component_pixels": 18169
+      },
+      "vascular_bed": {
+        "pixels": 43773,
+        "fraction_roi": 0.6867214709296853,
+        "components": 1,
+        "largest_component_pixels": 43773
+      },
+      "support_enabled": true,
+      "support_used_for_compensation": true,
+      "clutter_pruning_enabled": true,
+      "used_for_registration_exclusion": true
+    },
+    "roi_roles": {
+      "analysis_roi": {
+        "pixels": 63742,
+        "fraction_roi": 0.24315643310546875,
+        "components": 1,
+        "largest_component_pixels": 63742
+      },
+      "registration_candidate_roi": {
+        "pixels": 14993,
+        "fraction_roi": 0.23521383075523203,
+        "components": 37,
+        "largest_component_pixels": 5694
+      },
+      "registration_safe_roi": {
+        "pixels": 18509,
+        "fraction_roi": 0.29037369395375107,
+        "components": 57,
+        "largest_component_pixels": 17297
+      },
+      "vessel_detection_region": {
+        "pixels": 215296,
+        "fraction_roi": 0.8212890625,
+        "components": 1,
+        "largest_component_pixels": 215296
+      },
+      "motion_exclusion_mask": {
+        "pixels": 6262,
+        "fraction_roi": 0.09823977910953531,
+        "components": 12,
+        "largest_component_pixels": 3448
+      },
+      "vessel_support_mask": {
+        "pixels": 19129,
+        "fraction_roi": 0.3001004047566753,
+        "components": 7,
+        "largest_component_pixels": 18169
+      },
+      "compensation_vessel_mask": {
+        "pixels": 19129,
+        "fraction_roi": 0.3001004047566753,
+        "components": 7,
+        "largest_component_pixels": 18169
+      },
+      "background_metric_region": {
+        "pixels": 44613,
+        "fraction_roi": 0.6998995952433247,
+        "components": 21,
+        "largest_component_pixels": 26325
+      }
+    },
+    "global_shift": [
+      -0.008911137332120234,
+      0.018832928830789797
+    ],
+    "global_response": 0.9299845534763667,
+    "global_preregistration": {
+      "method": "phase_correlation",
+      "applied": true,
+      "response": 0.9299845534763667,
+      "shift": [
+        -0.008911137332120234,
+        0.018832928830789797
+      ]
+    },
+    "effective_search_radius": 8,
+    "effective_max_displacement": 6.0,
+    "field_reliability": 0.9,
+    "global_field_reliability": 0.9,
+    "field_stages": {
+      "global_shift": {
+        "mean": 0.020834768462776373,
+        "p50": 0.020834768462776362,
+        "p90": 0.020834768462776362,
+        "p99": 0.020834768462776362,
+        "max": 0.020834768462776362
+      },
+      "model_field": {
+        "mean": 1.3037079719965972,
+        "p50": 1.2059194258210049,
+        "p90": 2.280537808611219,
+        "p99": 3.359161386691445,
+        "max": 3.5811215910460685
+      },
+      "soft_roi": {
+        "mean": 1.1878288403430854,
+        "p50": 1.1190560611318756,
+        "p90": 2.0594405998149377,
+        "p99": 3.1919361104938284,
+        "max": 3.46125549839715
+      },
+      "confidence_gate": {
+        "mean": 0.36676338542157916,
+        "p50": 0.0,
+        "p90": 1.388449636769918,
+        "p99": 1.9403492281577668,
+        "max": 2.3611976402888244
+      },
+      "global_reliability": {
+        "mean": 0.3300870468794213,
+        "p50": 0.0,
+        "p90": 1.249604673092926,
+        "p99": 1.7463143053419903,
+        "max": 2.125077876259942
+      },
+      "combined_before_protection": {
+        "mean": 0.3472897676027694,
+        "p50": 0.020834768462776362,
+        "p90": 1.260852971761284,
+        "p99": 1.7655493978789223,
+        "max": 2.1435921213728086
+      },
+      "vessel_protection": {
+        "mean": 0.34113580549031713,
+        "p50": 0.020834768462776362,
+        "p90": 1.2195229558901317,
+        "p99": 1.6904755574346262,
+        "max": 2.006679582938184
+      },
+      "local_improvement_gate": {
+        "mean": 0.5991812793647947,
+        "p50": 0.008523177701684053,
+        "p90": 2.4107850996813336,
+        "p99": 3.3471416037205604,
+        "max": 3.9732255742176044
+      }
+    },
+    "displacement_field": {
+      "mean": 0.5991812793647947,
+      "p50": 0.008523177701684053,
+      "p90": 2.4107850996813336,
+      "p99": 3.3471416037205604,
+      "max": 3.9732255742176044
+    },
+    "displacement_field_vessels": {
+      "mean": 0.07981989450396633,
+      "p50": 0.008120960989944827,
+      "p90": 0.24111236765616662,
+      "p99": 1.0195003972709913,
+      "max": 1.9930888930028616
+    },
+    "displacement_field_background": {
+      "mean": 0.8218711664157167,
+      "p50": 0.014894353752091718,
+      "p90": 2.668819787711061,
+      "p99": 3.4228270985339564,
+      "max": 3.9732255742176044
+    },
+    "compensation_delta": {
+      "mean": 4.53642525389154,
+      "p50": 3.1184468339505145,
+      "p90": 11.320388162063495,
+      "p99": 17.64816470965839,
+      "max": 39.315457712265726
+    },
+    "candidate_control_points": 113,
+    "control_points": 24,
+    "mean_point_confidence": 0.26940094913084944,
+    "match_coverage": {
+      "accepted_count": 24,
+      "accepted_cells": 5,
+      "coverage_grid": 4,
+      "coverage_fraction": 0.3125
+    },
+    "safe_mask_coverage_roi": 0.29037369395375107,
+    "safe_mask_used_for_global_matching": false,
+    "registration_weight_mean_roi": 0.2961053618776596,
+    "registration_weight_p50_roi": 0.23658451390986535,
+    "registration_weight_p90_roi": 0.6503904031332395,
+    "point_region_summary": {
+      "vascular_bed": {
+        "total": 43,
+        "accepted": 14,
+        "rejected": 29
+      },
+      "stable_background": {
+        "total": 29,
+        "accepted": 7,
+        "rejected": 22
+      },
+      "bright_or_metal": {
+        "total": 23,
+        "accepted": 2,
+        "rejected": 21
+      },
+      "near_vessel": {
+        "total": 6,
+        "accepted": 0,
+        "rejected": 6
+      },
+      "low_texture": {
+        "total": 10,
+        "accepted": 1,
+        "rejected": 9
+      },
+      "outside_roi": {
+        "total": 2,
+        "accepted": 0,
+        "rejected": 2
+      }
+    },
+    "accepted_region_motion_weight_mean": 0.7979166666666666,
+    "intensity_correction": {
+      "method": "local",
+      "applied": true,
+      "scale_mean": 0.9768863473474189,
+      "offset_mean": 29.186293118382114,
+      "support_fraction": 0.17018508911132812
+    },
+    "background_haze_correction": {
+      "method": "weighted_low_frequency_bias",
+      "applied": false,
+      "reason": "disabled"
+    },
+    "geometric_only_metrics": {
+      "mean_displacement": 0.5991812793647947,
+      "max_displacement": 3.9732255742176044,
+      "background_std_improvement": 0.0013828566149663747,
+      "background_abs_mean_improvement": 0.004225056559728766,
+      "background_p95_abs_improvement": 0.00016760504771839584,
+      "roi_abs_mean_improvement": 0.003705877649994846,
+      "vessel_abs_signal_ratio": 0.9982703600267345,
+      "vessel_contrast_before": -11.603596991245663,
+      "vessel_contrast_after": -11.508763946340778,
+      "vessel_contrast_ratio": 0.9918272726070926,
+      "vessel_edge_strength_ratio": 0.9961085461836173,
+      "background_before": {
+        "pixels": 44613,
+        "abs_mean": 29.960123730751125,
+        "abs_std": 38.120483657672416,
+        "abs_p90": 98.0,
+        "abs_p95": 123.0,
+        "abs_p99": 143.0
+      },
+      "background_after": {
+        "pixels": 44613,
+        "abs_mean": 29.83354051340998,
+        "abs_std": 38.06776849466686,
+        "abs_p90": 97.63135443852875,
+        "abs_p95": 122.97938457912896,
+        "abs_p99": 142.9999384091439
+      },
+      "vessel_before": {
+        "pixels": 19129,
+        "abs_mean": 18.356526739505462,
+        "abs_std": 11.778574873752481,
+        "abs_p90": 33.0,
+        "abs_p95": 40.0,
+        "abs_p99": 57.0
+      },
+      "vessel_after": {
+        "pixels": 19129,
+        "abs_mean": 18.3247765670692,
+        "abs_std": 11.754895715401107,
+        "abs_p90": 32.903883274340636,
+        "abs_p95": 39.79294505392451,
+        "abs_p99": 56.87481958437108
+      },
+      "roi_before": {
+        "pixels": 63742,
+        "abs_mean": 26.477879577044963,
+        "abs_std": 32.96951467022745,
+        "abs_p90": 77.0,
+        "abs_p95": 114.0,
+        "abs_p99": 140.0
+      },
+      "roi_after": {
+        "pixels": 63742,
+        "abs_mean": 26.379755794864078,
+        "abs_std": 32.917325324125024,
+        "abs_p90": 75.99341558429215,
+        "abs_p95": 113.98519356129604,
+        "abs_p99": 139.9965919624176
+      },
+      "result_vs_no_abs_mean_roi": 1.208500820778322,
+      "vessel_density_roi": 0.3001004047566753
+    },
+    "protection": {
+      "enable_search_shrink_after_global": true,
+      "protect_vessels_in_field": true,
+      "vessel_field_strategy": "propagate",
+      "vessel_field_protection_strength": 0.55,
+      "vessel_field_propagation_strength": 0.85,
+      "subtraction_intensity_correction_strength": 0.35,
+      "background_haze_correction_strength": 0.25,
+      "vascular_bed_motion_attenuation": 0.93,
+      "enable_local_improvement_gate": true,
+      "enable_spatial_consistency_filter": true,
+      "registration_use_vessel_support_exclusion": true,
+      "prefer_nonrigid_registration": true,
+      "field_confidence_floor": 0.12,
+      "field_confidence_full": 0.48,
+      "field_confidence_min_weight": 0.78,
+      "nonrigid_field_confidence_min_weight": 0.9
+    }
+  },
+  "metrics": {
+    "mean_displacement": 0.5991812793647947,
+    "max_displacement": 3.9732255742176044,
+    "background_std_improvement": 0.09466770934316915,
+    "background_abs_mean_improvement": 0.125279115374419,
+    "background_p95_abs_improvement": 0.08445820133871175,
+    "roi_abs_mean_improvement": 0.09742776581064029,
+    "vessel_abs_signal_ratio": 1.0085875214311242,
+    "vessel_contrast_before": -11.603596991245663,
+    "vessel_contrast_after": -7.692582115633851,
+    "vessel_contrast_ratio": 0.6629480606804082,
+    "vessel_edge_strength_ratio": 1.0051513272490171,
+    "background_before": {
+      "pixels": 44613,
+      "abs_mean": 29.960123730751125,
+      "abs_std": 38.120483657672416,
+      "abs_p90": 98.0,
+      "abs_p95": 123.0,
+      "abs_p99": 143.0
+    },
+    "background_after": {
+      "pixels": 44613,
+      "abs_mean": 26.206745932001695,
+      "abs_std": 34.51170478980018,
+      "abs_p90": 85.7728674988861,
+      "abs_p95": 112.61164123449387,
+      "abs_p99": 133.64283682672473
+    },
+    "vessel_before": {
+      "pixels": 19129,
+      "abs_mean": 18.356526739505462,
+      "abs_std": 11.778574873752481,
+      "abs_p90": 33.0,
+      "abs_p95": 40.0,
+      "abs_p99": 57.0
+    },
+    "vessel_after": {
+      "pixels": 19129,
+      "abs_mean": 18.514163816367844,
+      "abs_std": 12.310430624616835,
+      "abs_p90": 33.62741298252506,
+      "abs_p95": 40.43432997370009,
+      "abs_p99": 59.057708214823954
+    },
+    "roi_before": {
+      "pixels": 63742,
+      "abs_mean": 26.477879577044963,
+      "abs_std": 32.96951467022745,
+      "abs_p90": 77.0,
+      "abs_p95": 114.0,
+      "abs_p99": 140.0
+    },
+    "roi_after": {
+      "pixels": 63742,
+      "abs_mean": 23.898198925476013,
+      "abs_std": 29.858489147585097,
+      "abs_p90": 65.77708981149293,
+      "abs_p95": 102.41700233387846,
+      "abs_p99": 130.14178510120803
+    },
+    "result_vs_no_abs_mean_roi": 4.53642525389154,
+    "vessel_density_roi": 0.3001004047566753
+  }
+}

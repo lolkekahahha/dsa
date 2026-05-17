@@ -1,0 +1,2 @@
+motion_model,control_points,candidate_control_points,coverage_fraction,total_seconds,background_std_improvement,background_abs_mean_improvement,background_p95_abs_improvement,vessel_abs_signal_ratio,vessel_contrast_ratio,vessel_edge_strength_ratio,mean_displacement,max_displacement
+nonrigid,24,113,0.3125,8.652447300002677,0.13051935315604035,0.17316727624975592,0.11916355179847408,0.9924151768492623,0.564886472410667,1.0015516983067123,0.5991812793647947,3.9732255742176044
