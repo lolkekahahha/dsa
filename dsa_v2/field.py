@@ -33,24 +33,42 @@ def build_affine_field(coeffs: np.ndarray, shape) -> tuple[np.ndarray, np.ndarra
     return values[:, 0].reshape(h, w), values[:, 1].reshape(h, w)
 
 
+def _residual_control_points(points: np.ndarray, displacements: np.ndarray, confidences: np.ndarray, shape):
+    h, w = shape
+    coeffs = fit_affine(points, displacements, confidences)
+    affine_at_points = evaluate_affine(points, coeffs)
+    residual = displacements - affine_at_points
+    margin = min(20.0, max(1.0, 0.05 * min(h, w)))
+    anchors = np.array(
+        [
+            [margin, margin],
+            [w - margin, margin],
+            [w - margin, h - margin],
+            [margin, h - margin],
+        ],
+        dtype=np.float64,
+    )
+    all_pts = np.vstack([points, anchors])
+    all_disp = np.vstack([residual, np.zeros_like(anchors)])
+    rounded = np.round(all_pts, 3)
+    _, unique_idx = np.unique(rounded, axis=0, return_index=True)
+    unique_idx = np.sort(unique_idx)
+    return coeffs, all_pts[unique_idx], all_disp[unique_idx]
+
+
 def build_delaunay_field(points: np.ndarray, displacements: np.ndarray, confidences: np.ndarray, shape, cfg: PipelineConfig):
     h, w = shape
     if len(points) == 0:
         return np.zeros((h, w), dtype=np.float64), np.zeros((h, w), dtype=np.float64)
 
-    coeffs = fit_affine(points, displacements, confidences)
-    affine_at_points = evaluate_affine(points, coeffs)
-    residual = displacements - affine_at_points
-    margin = 20
-    corners = np.array([[margin, margin], [w - margin, margin], [w - margin, h - margin], [margin, h - margin]], dtype=np.float64)
-    all_pts = np.vstack([points, corners])
-    all_disp = np.vstack([residual, np.zeros_like(corners)])
+    coeffs, all_pts, all_disp = _residual_control_points(points, displacements, confidences, shape)
     y, x = np.mgrid[0:h, 0:w]
     grid = np.column_stack([x.ravel(), y.ravel()])
 
     try:
         tri = Delaunay(all_pts)
     except Exception:
+        residual = displacements - evaluate_affine(points, coeffs)
         residual_dx = griddata(points, residual[:, 0], grid, method="linear", fill_value=0.0).reshape(h, w)
         residual_dy = griddata(points, residual[:, 1], grid, method="linear", fill_value=0.0).reshape(h, w)
         affine = evaluate_affine(grid, coeffs)

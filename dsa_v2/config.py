@@ -13,7 +13,6 @@ class PipelineConfig:
     min_control_points: int = 30
     max_control_points: int = 220
     max_points_per_cell: int = 2
-    min_control_point_cells: int = 12
     coverage_grid: int = 4
     coverage_points_per_cell: int = 2
     enable_texture_control_points: bool = True
@@ -142,6 +141,11 @@ class PipelineConfig:
     enable_local_improvement_gate: bool = True
     local_improvement_tolerance: float = 0.15
     local_improvement_confidence_preserve: float = 1.25
+
+    enable_vessel_display_enhancement: bool = True
+    vessel_display_enhancement_strength: float = 0.60
+    vessel_display_background_smoothing: float = 0.34
+    vessel_display_support_sigma: float = 2.5
 
     output_window_percentiles: Tuple[float, float] = (1.0, 99.0)
 

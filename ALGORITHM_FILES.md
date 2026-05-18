@@ -154,6 +154,7 @@
 Сохраняемые файлы:
 - `dsa_no_compensation.png`;
 - `dsa_compensated.png`;
+- `dsa_vessel_enhanced.png`;
 - `vessel_support_overlay.png`;
 - `displacement_magnitude.png`;
 - `match_vectors.png`;

@@ -42,6 +42,7 @@ python run_ablation.py --output-root results\ablation
 
 - `dsa_no_compensation.png` - субтракция без компенсации.
 - `dsa_compensated.png` - итог после компенсации.
+- `dsa_vessel_enhanced.png` - визуальное усиление сосудов после субтракции.
 - `vessel_support_overlay.png` - широкая сосудистая маска.
 - `displacement_magnitude.png` - модуль поля смещений.
 - `match_vectors.png` - принятые и отклоненные контрольные точки.

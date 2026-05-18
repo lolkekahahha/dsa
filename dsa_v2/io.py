@@ -51,12 +51,54 @@ def enhance_dsa_display(image: np.ndarray) -> np.ndarray:
     return np.clip(enhanced, 0, 255).astype(np.uint8)
 
 
-def percentile_window(*images: np.ndarray, percentiles: Tuple[float, float] = (1.0, 99.0)) -> Tuple[float, float]:
-    values = np.concatenate([img.astype(np.float64).ravel() for img in images])
-    lo, hi = np.percentile(values, percentiles)
-    if hi <= lo:
-        hi = lo + 1.0
-    return float(lo), float(hi)
+def enhance_vessel_display(
+    image: np.ndarray,
+    vessel_support: np.ndarray,
+    roi: np.ndarray,
+    strength: float = 0.45,
+    background_smoothing: float = 0.28,
+    support_sigma: float = 2.5,
+) -> np.ndarray:
+    image_u8 = np.clip(image, 0, 255).astype(np.uint8)
+    if strength <= 0.0:
+        return image_u8
+
+    image_f = image_u8.astype(np.float64)
+    roi_mask = roi.astype(bool) if roi is not None and np.any(roi) else np.ones_like(image_u8, dtype=bool)
+    support_mask = vessel_support.astype(bool) & roi_mask if vessel_support is not None else np.zeros_like(roi_mask)
+
+    support = cv2.GaussianBlur(
+        support_mask.astype(np.float64),
+        (0, 0),
+        sigmaX=max(0.5, float(support_sigma)),
+    )
+    if np.max(support) > 0:
+        support = support / (np.max(support) + 1e-8)
+
+    dark_score = np.zeros_like(image_f)
+    for size in (9, 15, 23):
+        kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (size, size))
+        dark_score = np.maximum(dark_score, cv2.morphologyEx(image_u8, cv2.MORPH_BLACKHAT, kernel).astype(np.float64))
+
+    local_mean = cv2.GaussianBlur(image_f, (0, 0), sigmaX=18.0)
+    darkness = np.clip((local_mean - image_f) / 35.0, 0.0, 1.0)
+    roi_values = dark_score[roi_mask]
+    if roi_values.size:
+        lo = float(np.percentile(roi_values, 55))
+        hi = float(np.percentile(roi_values, 98))
+    else:
+        lo, hi = 0.0, 1.0
+    tubular = np.clip((dark_score - lo) / (hi - lo + 1e-8), 0.0, 1.0) * darkness * roi_mask.astype(np.float64)
+    vessel_weight = np.clip(np.maximum(support, tubular), 0.0, 1.0)
+    vessel_weight = cv2.GaussianBlur(vessel_weight, (0, 0), sigmaX=0.8)
+
+    background_weight = roi_mask.astype(np.float64) * (1.0 - np.clip(1.35 * vessel_weight, 0.0, 1.0))
+    denoised = cv2.bilateralFilter(image_u8, d=7, sigmaColor=18, sigmaSpace=5).astype(np.float64)
+    smoothed = image_f * (1.0 - background_smoothing * background_weight) + denoised * (background_smoothing * background_weight)
+
+    vessel_darkening = float(np.clip(strength, 0.0, 1.0)) * (8.0 + 28.0 * tubular) * vessel_weight
+    enhanced = smoothed - vessel_darkening
+    return np.clip(enhanced, 0, 255).astype(np.uint8)
 
 
 def dsa_display_window(*images: np.ndarray, percentile: float = 99.0) -> Tuple[float, float]:

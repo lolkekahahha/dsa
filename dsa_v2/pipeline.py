@@ -21,7 +21,7 @@ from .field import (
     protect_vessel_field,
     warp_image,
 )
-from .io import dsa_display_window, enhance_dsa_display, ensure_dir, save_uint8, to_uint8_window
+from .io import dsa_display_window, enhance_dsa_display, enhance_vessel_display, ensure_dir, save_uint8, to_uint8_window
 from .masks import (
     compute_registration_safe_mask,
     compute_registration_weight_map,
@@ -343,7 +343,7 @@ def run_pipeline(mask: np.ndarray, live: np.ndarray, cfg: PipelineConfig) -> Pip
     dsa_result, haze_correction = correct_background_haze(
         dsa_result,
         roi,
-        vessels,
+        compensation_vessels,
         np.clip(registration_weight.astype(np.float64), 0.0, 1.0),
         match_cfg,
     )
@@ -451,24 +451,12 @@ def save_result(result: PipelineResult, output_dir: str | Path, cfg: PipelineCon
     managed_outputs = [
         "dsa_no_compensation.png",
         "dsa_compensated.png",
+        "dsa_vessel_enhanced.png",
         "vessel_support_overlay.png",
         "displacement_magnitude.png",
         "match_vectors.png",
         "motion_report.json",
         "summary.csv",
-        "dsa_v2_compensated_shared_window.png",
-        "dsa_v2_no_compensation_shared_window.png",
-        "dsa_v2_compensation_delta.png",
-        "dsa_v2_displacement_magnitude.png",
-        "dsa_v2_vessel_overlay.png",
-        "dsa_v2_vessel_support_overlay.png",
-        "dsa_v2_match_vectors.png",
-        "dsa_v2_motion_report.json",
-        "dsa_v2_geometric_compensated_shared_window.png",
-        "dsa_v2_warped_mask_delta.png",
-        "dsa_v2_vessel_mask.png",
-        "dsa_v2_registration_safe_mask.png",
-        "dsa_v2_point_pairs.csv",
     ]
     for name in managed_outputs:
         path = out / name
@@ -483,6 +471,16 @@ def save_result(result: PipelineResult, output_dir: str | Path, cfg: PipelineCon
     compensated_display = enhance_dsa_display(to_uint8_window(result.dsa_result, vmin, vmax))
     no_compensation_display = enhance_dsa_display(to_uint8_window(result.dsa_no_compensation, vmin, vmax))
     save_uint8(out / "dsa_compensated.png", compensated_display)
+    if cfg.enable_vessel_display_enhancement:
+        vessel_enhanced = enhance_vessel_display(
+            compensated_display,
+            result.vessel_support_mask,
+            result.roi_mask,
+            strength=cfg.vessel_display_enhancement_strength,
+            background_smoothing=cfg.vessel_display_background_smoothing,
+            support_sigma=cfg.vessel_display_support_sigma,
+        )
+        save_uint8(out / "dsa_vessel_enhanced.png", vessel_enhanced)
     save_uint8(out / "dsa_no_compensation.png", no_compensation_display)
 
     vessel_base = cv2.cvtColor(
